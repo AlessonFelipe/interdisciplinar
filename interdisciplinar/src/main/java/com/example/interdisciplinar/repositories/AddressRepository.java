@@ -1,6 +1,6 @@
 package com.example.interdisciplinar.repositories;
 
-import com.example.interdisciplinar.models.CardapioModel;
+import com.example.interdisciplinar.models.AddressModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-
-public interface CardapioRepository extends JpaRepository<CardapioModel, UUID> {
-    Optional<CardapioModel> findByNome(String nome);
+public interface AddressRepository extends JpaRepository<AddressModel, UUID> {
+    // Você pode adicionar métodos de consulta personalizados aqui, se necessário
 }

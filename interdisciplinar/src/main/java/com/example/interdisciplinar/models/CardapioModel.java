@@ -3,8 +3,12 @@ package com.example.interdisciplinar.models;
 
 import jakarta.persistence.*;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.UUID;
 
 @Entity
@@ -19,6 +23,20 @@ public class CardapioModel implements Serializable {
     private String nome;
     private String descricao;
     private BigDecimal preco;
+    private String imagemUrl;
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+
+    public void setImagemUrl(String imagemUrl) {
+        try {
+            new URL(imagemUrl).toURI();
+            this.imagemUrl = imagemUrl;
+        } catch (MalformedURLException | URISyntaxException e) {
+            throw new IllegalArgumentException("URL inválida: " + imagemUrl);
+        }
+    }
 
     public UUID getIdCardapio() {
         return idCardapio;

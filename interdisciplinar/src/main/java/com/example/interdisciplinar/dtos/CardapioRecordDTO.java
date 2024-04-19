@@ -5,5 +5,5 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record CardapioRecordDTO(@NotBlank String nome, @NotBlank String descricao, @NotNull BigDecimal preco) {
+public record CardapioRecordDTO(@NotBlank String nome, @NotBlank String descricao, @NotNull BigDecimal preco, @NotBlank String imagemUrl) {
 }
