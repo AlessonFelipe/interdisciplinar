@@ -1,6 +1,6 @@
 package com.example.interdisciplinar.controllers;
 
-import com.example.interdisciplinar.dtos.LoginModel;
+
 import com.example.interdisciplinar.dtos.LoginRecordDTO;
 import com.example.interdisciplinar.models.UserModel;
 import com.example.interdisciplinar.repositories.UserRepository;

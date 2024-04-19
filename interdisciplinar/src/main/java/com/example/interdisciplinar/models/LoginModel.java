@@ -1,4 +1,4 @@
-package com.example.interdisciplinar.dtos;
+package com.example.interdisciplinar.models;
 
 import jakarta.validation.constraints.NotBlank;
 

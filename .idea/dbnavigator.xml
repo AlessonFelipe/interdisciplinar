@@ -11,7 +11,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="81389a3c-b1d2-434f-b054-e31bdf3684b5">
+    <connection id="a84ee289-dad0-49da-ae90-f4481499651f">
       <console name="inter" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -41,13 +41,13 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="81389a3c-b1d2-434f-b054-e31bdf3684b5" active="true" signed="true">
+      <connection id="a84ee289-dad0-49da-ae90-f4481499651f" active="true" signed="true">
         <database>
           <name value="inter" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="8.0" />
+          <database-version value="9999.0" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
