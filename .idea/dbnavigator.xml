@@ -22,7 +22,8 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="ec1c2716-ced7-44fe-b6da-a13ca882f3f1" dataset="restaurante.cardapios" active-filter-id="" />
+    <filter-actions connection-id="a84ee289-dad0-49da-ae90-f4481499651f" dataset="restaurante.pedido" active-filter-id="" />
+    <filter-actions connection-id="a84ee289-dad0-49da-ae90-f4481499651f" dataset="restaurante.pedidos" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -47,7 +48,7 @@
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="8.0" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
