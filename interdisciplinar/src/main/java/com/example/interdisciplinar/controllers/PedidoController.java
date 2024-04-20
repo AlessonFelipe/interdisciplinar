@@ -1,7 +1,7 @@
 package com.example.interdisciplinar.controllers;
-
 import com.example.interdisciplinar.dtos.PedidoRecordDTO;
 import com.example.interdisciplinar.models.CardapioModel;
+import com.example.interdisciplinar.models.FormaPagamento;
 import com.example.interdisciplinar.models.PedidoModel;
 import com.example.interdisciplinar.models.UserModel;
 import com.example.interdisciplinar.repositories.CardapioRepository;
@@ -53,12 +53,28 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
 
     // Calcular o preço total do pedido
     BigDecimal precoTotal = produto.getPreco().multiply(BigDecimal.valueOf(pedidoRecordDTO.quantidade()));
+    FormaPagamento formaPagamento;
+    switch (pedidoRecordDTO.formaPagamento().toUpperCase()) {
+        case "DEBITO":
+            formaPagamento = FormaPagamento.DEBITO;
+            break;
+        case "CREDITO":
+            formaPagamento = FormaPagamento.CREDITO;
+            break;
+        case "PIX":
+            formaPagamento = FormaPagamento.PIX;
+            break;
+        default:
+            throw new IllegalArgumentException("Forma de pagamento não reconhecida: " + pedidoRecordDTO.formaPagamento());
 
+    }
     // Preencher o pedidoModel com os dados do pedidoRecordDTO e o preço total
     pedidoModel.setUsuario(usuario);
     pedidoModel.setProduto(produto);
     pedidoModel.setQuantidade(pedidoRecordDTO.quantidade());
     pedidoModel.setPrecoTotal(precoTotal);
+    pedidoModel.setFormaPagamento(formaPagamento);
+
 
     // Salvar o pedido no banco de dados
     PedidoModel novoPedido = pedidoRepository.save(pedidoModel);

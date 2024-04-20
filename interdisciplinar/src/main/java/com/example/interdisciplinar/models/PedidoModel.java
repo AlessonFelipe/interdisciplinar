@@ -36,6 +36,18 @@ public class PedidoModel implements Serializable {
     @Column(name = "preco_total")
     private BigDecimal precoTotal;
 
+    @Column(name = "forma_pagamento")
+    @Enumerated(EnumType.STRING)
+    private FormaPagamento formaPagamento;
+
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
     public BigDecimal getPrecoTotal() {
         return precoTotal;
     }
