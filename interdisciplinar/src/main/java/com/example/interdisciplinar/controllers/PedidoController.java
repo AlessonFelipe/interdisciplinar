@@ -38,7 +38,7 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
     var pedidoModel = new PedidoModel();
 
     // Encontrar o UserModel correspondente ao ID fornecido
-    Optional<UserModel> userOptional = userRepository.findById(UUID.fromString(pedidoRecordDTO.usuario()));
+    Optional<UserModel> userOptional = userRepository.findById(Integer.parseInt(pedidoRecordDTO.usuario()));
     if (userOptional.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
@@ -91,7 +91,7 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
         return ResponseEntity.status(HttpStatus.OK).body(pedidos);
     }
     @DeleteMapping("/pedido/{id}")
-    public ResponseEntity<Object> deletePedido(@PathVariable UUID id) {
+    public ResponseEntity<Object> deletePedido(@PathVariable Integer id) {
         Optional<PedidoModel> pedidoOptional = pedidoRepository.findById(id);
         if (pedidoOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -101,7 +101,7 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
     }
 
     @PutMapping("/pedido/{id}")
-    public ResponseEntity<PedidoModel> updatePedido(@PathVariable UUID id, @RequestBody PedidoRecordDTO pedidoRecordDTO) {
+    public ResponseEntity<PedidoModel> updatePedido(@PathVariable Integer id, @RequestBody PedidoRecordDTO pedidoRecordDTO) {
         Optional<PedidoModel> pedidoOptional = pedidoRepository.findById(id);
         if (pedidoOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -109,7 +109,7 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
         PedidoModel pedido = pedidoOptional.get();
 
         // Encontre o usuário com base no ID do usuário no DTO
-        Optional<UserModel> userOptional = userRepository.findById(UUID.fromString(pedidoRecordDTO.usuario()));
+        Optional<UserModel> userOptional = userRepository.findById(Integer.parseInt(pedidoRecordDTO.usuario()));
         if (userOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

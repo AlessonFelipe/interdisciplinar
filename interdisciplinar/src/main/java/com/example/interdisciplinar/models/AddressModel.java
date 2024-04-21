@@ -94,7 +94,7 @@ public class AddressModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idEndereco;
+    private Integer idEndereco;
 
     @OneToOne
     @JoinColumn(name = "id_usuario")
@@ -118,11 +118,11 @@ public class AddressModel implements Serializable {
 
     // Getters e setters
 
-    public UUID getIdEndereco() {
+    public Integer getIdEndereco() {
         return idEndereco;
     }
 
-    public void setIdEndereco(UUID idEndereco) {
+    public void setIdEndereco(Integer idEndereco) {
         this.idEndereco = idEndereco;
     }
 

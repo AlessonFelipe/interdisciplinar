@@ -19,7 +19,7 @@ public class UserModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID idUsuario;
+    private Integer idUsuario;
     private String nome;
     private int numero;
     private String senha;
@@ -50,11 +50,11 @@ public class UserModel implements Serializable {
         }
     }
 
-    public UUID getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(UUID idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 

@@ -20,7 +20,7 @@ public class PedidoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID idPedido;
+    private Integer idPedido;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
@@ -58,11 +58,11 @@ public class PedidoModel implements Serializable {
 
     private int quantidade;
 
-    public UUID getIdPedido() {
+    public Integer getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(UUID idPedido) {
+    public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
     }
 

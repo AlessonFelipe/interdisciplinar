@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface PedidoRepository extends JpaRepository<PedidoModel, UUID> {
+public interface PedidoRepository extends JpaRepository<PedidoModel, Integer> {
     List<PedidoModel> findByUsuario(UserModel usuario);
 }

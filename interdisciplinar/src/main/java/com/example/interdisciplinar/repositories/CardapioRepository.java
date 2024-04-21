@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 
-public interface CardapioRepository extends JpaRepository<CardapioModel, UUID> {
+public interface CardapioRepository extends JpaRepository<CardapioModel, Integer> {
     Optional<CardapioModel> findByNome(String nome);
 }

@@ -33,7 +33,7 @@ public class AddressController {
     }
 
     @GetMapping("/endereco/{id}")
-    public ResponseEntity<Object> getOneEndereco(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> getOneEndereco(@PathVariable(value = "id")Integer id){
         Optional<AddressModel> address = addressRepository.findById(id); // Alteração do nome do modelo
         if(address.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado.");
@@ -42,7 +42,7 @@ public class AddressController {
     }
 
     @PutMapping("/endereco/{id}")
-    public ResponseEntity<Object> updateEndereco(@PathVariable(value = "id") UUID id, @RequestBody @Valid AddressRecordDTO addressRecordDTO){
+    public ResponseEntity<Object> updateEndereco(@PathVariable(value = "id") Integer id, @RequestBody @Valid AddressRecordDTO addressRecordDTO){
         Optional<AddressModel> address = addressRepository.findById(id); // Alteração do nome do modelo
         if(address.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado.");
@@ -53,7 +53,7 @@ public class AddressController {
     }
 
     @DeleteMapping("/endereco/{id}")
-    public ResponseEntity<Object> deleteEndereco(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> deleteEndereco(@PathVariable(value = "id")Integer id){
         Optional<AddressModel> address = addressRepository.findById(id); // Alteração do nome do modelo
         if(address.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereço não encontrado.");

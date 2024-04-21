@@ -31,7 +31,7 @@ public class Cardapiocontroller {
         return ResponseEntity.status(HttpStatus.OK).body(cardapioRepository.findAll());
     }
     @GetMapping("/cardapio/{id}")
-    public ResponseEntity<Object> getOneCardapio(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> getOneCardapio(@PathVariable(value = "id")Integer id){
         Optional<CardapioModel> cardapio0 = cardapioRepository.findById(id);
         if(cardapio0.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
@@ -39,7 +39,7 @@ public class Cardapiocontroller {
         return ResponseEntity.status(HttpStatus.OK).body(cardapio0.get());
     }
     @PutMapping("/cardapio/{id}")
-    public ResponseEntity<Object> updateCardapio(@PathVariable(value = "id") UUID id, @RequestBody @Valid CardapioRecordDTO cardapioRecordDTO){
+    public ResponseEntity<Object> updateCardapio(@PathVariable(value = "id") Integer id, @RequestBody @Valid CardapioRecordDTO cardapioRecordDTO){
         Optional<CardapioModel> cardapio0 = cardapioRepository.findById(id);
         if(cardapio0.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
@@ -49,7 +49,7 @@ public class Cardapiocontroller {
         return ResponseEntity.status(HttpStatus.OK).body(cardapioRepository.save(cardapioModel));
     }
     @DeleteMapping("/cardapio/{id}")
-    public ResponseEntity<Object> deleteCardapio(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> deleteCardapio(@PathVariable(value = "id")Integer id){
         Optional<CardapioModel> cardapio0 = cardapioRepository.findById(id);
         if(cardapio0.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");

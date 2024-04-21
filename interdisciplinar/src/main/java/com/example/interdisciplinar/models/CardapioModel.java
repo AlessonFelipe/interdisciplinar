@@ -19,7 +19,7 @@ public class CardapioModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID idCardapio;
+    private Integer idCardapio;
     private String nome;
     private String descricao;
     private BigDecimal preco;
@@ -38,11 +38,11 @@ public class CardapioModel implements Serializable {
         }
     }
 
-    public UUID getIdCardapio() {
+    public Integer getIdCardapio() {
         return idCardapio;
     }
 
-    public void setIdCardapio(UUID idCardapio) {
+    public void setIdCardapio(Integer idCardapio) {
         this.idCardapio = idCardapio;
     }
 
