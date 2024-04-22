@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,7 @@ public class PedidoController {
     AddressRepository addressRepository;
 
 @PostMapping("/pedido")
-public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedidoRecordDTO) {
+public ResponseEntity<?> addPedido(@RequestBody PedidoRecordDTO pedidoRecordDTO) {
     var pedidoModel = new PedidoModel();
 
 
@@ -52,27 +53,34 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
     CardapioModel produto = produtoOptional.get();
 
 
-    BigDecimal precoTotal = produto.getPreco().multiply(BigDecimal.valueOf(pedidoRecordDTO.quantidade()));
     FormaPagamento formaPagamento;
     switch (pedidoRecordDTO.formaPagamento().toUpperCase()) {
-        case "DEBITO":
-            formaPagamento = FormaPagamento.DEBITO;
+        case "CARTAO":
+            formaPagamento = FormaPagamento.CARTAO;
             break;
-        case "CREDITO":
-            formaPagamento = FormaPagamento.CREDITO;
-            break;
-        case "PIX":
-            formaPagamento = FormaPagamento.PIX;
+        case "DINHEIRO":
+            formaPagamento = FormaPagamento.DINHEIRO;
             break;
         default:
             throw new IllegalArgumentException("Forma de pagamento não reconhecida: " + pedidoRecordDTO.formaPagamento());
 
     }
+    if (pedidoRecordDTO.opcoes().size() > 9 || pedidoRecordDTO.carnes().size() > 2) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Apenas duas opções de carnes disponíveis");
+    }
+    BigDecimal precoTotal = produto.getPreco();
+
+    if (pedidoRecordDTO.carnes().contains("Mão de Vaca")) {
+        precoTotal = BigDecimal.valueOf(20);
+    }
+
+    pedidoModel.getFrete();
     pedidoModel.setUsuario(usuario);
     pedidoModel.setProduto(produto);
-    pedidoModel.setQuantidade(pedidoRecordDTO.quantidade());
-    pedidoModel.setPrecoTotal(precoTotal);
     pedidoModel.setFormaPagamento(formaPagamento);
+    pedidoModel.setOpcoes(pedidoRecordDTO.opcoes());
+    pedidoModel.setCarnes(pedidoRecordDTO.carnes());
+    pedidoModel.setPrecoTotal(precoTotal);
 
 
     PedidoModel novoPedido = pedidoRepository.save(pedidoModel);
@@ -87,6 +95,7 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
         }
         return ResponseEntity.status(HttpStatus.OK).body(pedidos);
     }
+
     @DeleteMapping("/pedido/{id}")
     public ResponseEntity<Object> deletePedido(@PathVariable Integer id) {
         Optional<PedidoModel> pedidoOptional = pedidoRepository.findById(id);
@@ -120,7 +129,6 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
 
         pedido.setUsuario(usuario);
         pedido.setProduto(produto);
-        pedido.setQuantidade(pedidoRecordDTO.quantidade());
 
 
         PedidoModel pedidoAtualizado = pedidoRepository.save(pedido);

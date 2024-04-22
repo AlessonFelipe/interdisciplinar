@@ -1,5 +1,6 @@
 package com.example.interdisciplinar.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -23,16 +24,20 @@ public class PedidoModel implements Serializable {
     @JoinColumn(name = "id_produto")
     private CardapioModel produto;
 
-    @ManyToOne
-    @JoinColumn(name = "endereco_id")
-    private AddressModel endereco;
-    @Column(name = "preco_total")
-    private BigDecimal precoTotal;
+
+    @Column(name = "frete")
+    private String frete;
+
+    public String getFrete() {
+        return "Frete Grátis";
+    }
+
+ private BigDecimal precoTotal;
 
     @Column(name = "forma_pagamento")
     @Enumerated(EnumType.STRING)
     private FormaPagamento formaPagamento;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> carnes;
 
     public List<String> getCarnes() {
@@ -51,7 +56,7 @@ public class PedidoModel implements Serializable {
         this.opcoes = opcoes;
     }
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> opcoes;
 
     public FormaPagamento getFormaPagamento() {
@@ -69,8 +74,6 @@ public class PedidoModel implements Serializable {
     public void setPrecoTotal(BigDecimal precoTotal) {
         this.precoTotal = precoTotal;
     }
-
-    private int quantidade;
 
     public Integer getIdPedido() {
         return idPedido;
@@ -96,11 +99,4 @@ public class PedidoModel implements Serializable {
         this.produto = produto;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
 }

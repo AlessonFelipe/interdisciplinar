@@ -28,10 +28,7 @@ public class CardapioModel implements Serializable {
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    private String imagemUrl;
-    public String getImagemUrl() {
-        return imagemUrl;
-    }
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> opcoes;
@@ -54,14 +51,6 @@ public class CardapioModel implements Serializable {
         this.carnes = carnes;
     }
 
-    public void setImagemUrl(String imagemUrl) {
-        try {
-            new URL(imagemUrl).toURI();
-            this.imagemUrl = imagemUrl;
-        } catch (MalformedURLException | URISyntaxException e) {
-            throw new IllegalArgumentException("URL inválida: " + imagemUrl);
-        }
-    }
 
     public Integer getIdCardapio() {
         return idCardapio;

@@ -100,6 +100,7 @@ public class AddressModel implements Serializable {
     @JoinColumn(name = "id_usuario")
     private UserModel user;
 
+
     private String cep;
     private String logradouro;
     private String complemento;
