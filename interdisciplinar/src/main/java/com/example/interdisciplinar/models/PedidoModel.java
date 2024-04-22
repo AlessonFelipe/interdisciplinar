@@ -1,17 +1,10 @@
 package com.example.interdisciplinar.models;
 
-import com.example.interdisciplinar.models.UserModel;
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import jakarta.persistence.*;
 
-import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Table(name="Pedidos")
@@ -39,6 +32,27 @@ public class PedidoModel implements Serializable {
     @Column(name = "forma_pagamento")
     @Enumerated(EnumType.STRING)
     private FormaPagamento formaPagamento;
+    @ElementCollection
+    private List<String> carnes;
+
+    public List<String> getCarnes() {
+        return carnes;
+    }
+
+    public void setCarnes(List<String> carnes) {
+        this.carnes = carnes;
+    }
+
+    public List<String> getOpcoes() {
+        return opcoes;
+    }
+
+    public void setOpcoes(List<String> opcoes) {
+        this.opcoes = opcoes;
+    }
+
+    @ElementCollection
+    private List<String> opcoes;
 
     public FormaPagamento getFormaPagamento() {
         return formaPagamento;
@@ -89,5 +103,4 @@ public class PedidoModel implements Serializable {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-// Getters e setters
 }

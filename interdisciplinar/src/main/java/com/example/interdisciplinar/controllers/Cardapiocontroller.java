@@ -12,20 +12,46 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
+
 
 @RestController
-
-
 public class Cardapiocontroller {
     @Autowired
     CardapioRepository cardapioRepository;
-    @PostMapping("/cardapio")
-    public ResponseEntity<CardapioModel> saveCardapio(@RequestBody @Valid CardapioRecordDTO cardapioRecordDTO){
-        var cardapioModel = new CardapioModel();
-        BeanUtils.copyProperties(cardapioRecordDTO,cardapioModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardapioRepository.save(cardapioModel));
-    }
+//@PostMapping("/cardapio")
+//public ResponseEntity<CardapioModel> saveCardapio(@RequestBody @Valid CardapioRecordDTO cardapioRecordDTO){
+//    // Cria um novo objeto CardapioModel
+//    CardapioModel cardapioModel = new CardapioModel();
+//
+//    // Copia as propriedades do DTO para o modelo
+//    BeanUtils.copyProperties(cardapioRecordDTO, cardapioModel);
+//
+//    // Salva o CardapioModel no banco de dados
+//    CardapioModel savedCardapio = cardapioRepository.save(cardapioModel);
+//
+//    // Retorna uma resposta com o CardapioModel salvo e o status CREATED (201)
+//    return ResponseEntity.status(HttpStatus.CREATED).body(savedCardapio);
+//}
+@PostMapping("/cardapio")
+public ResponseEntity<CardapioModel> criarCardapio(@RequestBody @Valid CardapioRecordDTO cardapioRecordDTO) {
+    CardapioModel cardapio = new CardapioModel();
+    cardapio.setNome(cardapioRecordDTO.nome());
+    cardapio.setDescricao(cardapioRecordDTO.descricao());
+    cardapio.setPreco(cardapioRecordDTO.preco());
+    cardapio.setImagemUrl(cardapioRecordDTO.imagemUrl());
+
+    List<String> opcoes = cardapioRecordDTO.opcoes();
+    List<String> carnes = cardapioRecordDTO.carnes();
+
+    cardapio.setOpcoes(opcoes);
+    cardapio.setCarnes(carnes);
+
+    CardapioModel savedCardapio = cardapioRepository.save(cardapio);
+    return ResponseEntity.status(HttpStatus.CREATED).body(savedCardapio);
+}
+
+
     @GetMapping("/cardapio")
     public  ResponseEntity<List<CardapioModel>> getAllCardapios(){
         return ResponseEntity.status(HttpStatus.OK).body(cardapioRepository.findAll());
@@ -56,5 +82,4 @@ public class Cardapiocontroller {
         }
         cardapioRepository.delete(cardapio0.get());
         return ResponseEntity.status(HttpStatus.OK).body("Produto deletado com sucesso.");
-    }
-}
+    }}

@@ -2,15 +2,7 @@ package com.example.interdisciplinar.models;
 
 import jakarta.persistence.*;
 
-import java.awt.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Entity
 @Table(name="Usuarios")
@@ -76,7 +68,7 @@ public class UserModel implements Serializable {
     }
 
     public void setNome(String nome) {
-        // Validar se o nome tem mais de 5 caracteres
+
         if (nome.length() > 5) {
             this.nome = nome;
         } else {
@@ -86,17 +78,17 @@ public class UserModel implements Serializable {
 
 
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        // Validar a senha usando expressão regular
-        String regex = "^(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-        if (senha.matches(regex)) {
-            this.senha = senha;
-        } else {
-            throw new IllegalArgumentException("A senha deve ter pelo menos 4 caracteres, incluindo pelo menos uma letra e um caractere especial.");
-        }
-    }
+//    public String getSenha() {
+//        return senha;
+//    }
+//
+//    public void setSenha(String senha) {
+//
+//        String regex = "^(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+//        if (senha.matches(regex)) {
+//            this.senha = senha;
+//        } else {
+//            throw new IllegalArgumentException("A senha deve ter pelo menos 4 caracteres, incluindo pelo menos uma letra e um caractere especial.");
+//        }
+//    }
 }

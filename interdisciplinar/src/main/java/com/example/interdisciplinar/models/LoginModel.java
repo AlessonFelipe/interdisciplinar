@@ -9,9 +9,6 @@ public class LoginModel {
     @NotBlank
     private String senha;
 
-    // Getters e setters
-
-
     public int getNumero() {
         return numero;
     }

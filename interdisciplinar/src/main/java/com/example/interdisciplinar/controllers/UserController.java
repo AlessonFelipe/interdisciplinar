@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 public class UserController {
@@ -20,7 +19,10 @@ public class UserController {
     UserRepository userRepository;
 
     @PostMapping("/user")
-    public ResponseEntity<UserModel> saveUser(@RequestBody @Valid UserRecordDTO userRecordDTO){
+    public ResponseEntity<Object> saveUser(@RequestBody @Valid UserRecordDTO userRecordDTO){
+        if(userRepository.existsByNumero(userRecordDTO.numero())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Já existe um usuário com este número.");
+        }
         var userModel = new UserModel();
         BeanUtils.copyProperties(userRecordDTO, userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(userModel));

@@ -85,7 +85,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "Enderecos")
@@ -107,16 +107,16 @@ public class AddressModel implements Serializable {
     private String cidade;
     private String estado;
 
-    // Construtor vazio necessário para JPA
+
     public AddressModel() {}
 
-    // Construtor para criar um AddressModel com o CEP
+
     public AddressModel(String cep) {
         this.cep = cep;
         preencherEndereco();
     }
 
-    // Getters e setters
+
 
     public Integer getIdEndereco() {
         return idEndereco;

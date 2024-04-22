@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 import com.example.interdisciplinar.repositories.AddressRepository;
 import org.springframework.web.bind.annotation.*;
@@ -37,21 +37,21 @@ public class PedidoController {
 public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedidoRecordDTO) {
     var pedidoModel = new PedidoModel();
 
-    // Encontrar o UserModel correspondente ao ID fornecido
+
     Optional<UserModel> userOptional = userRepository.findById(Integer.parseInt(pedidoRecordDTO.usuario()));
     if (userOptional.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     UserModel usuario = userOptional.get();
 
-    // Encontrar o CardapioModel correspondente ao nome do produto fornecido
+
     Optional<CardapioModel> produtoOptional = cardapioRepository.findByNome(pedidoRecordDTO.produto());
     if (produtoOptional.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     CardapioModel produto = produtoOptional.get();
 
-    // Calcular o preço total do pedido
+
     BigDecimal precoTotal = produto.getPreco().multiply(BigDecimal.valueOf(pedidoRecordDTO.quantidade()));
     FormaPagamento formaPagamento;
     switch (pedidoRecordDTO.formaPagamento().toUpperCase()) {
@@ -68,7 +68,6 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
             throw new IllegalArgumentException("Forma de pagamento não reconhecida: " + pedidoRecordDTO.formaPagamento());
 
     }
-    // Preencher o pedidoModel com os dados do pedidoRecordDTO e o preço total
     pedidoModel.setUsuario(usuario);
     pedidoModel.setProduto(produto);
     pedidoModel.setQuantidade(pedidoRecordDTO.quantidade());
@@ -76,10 +75,8 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
     pedidoModel.setFormaPagamento(formaPagamento);
 
 
-    // Salvar o pedido no banco de dados
     PedidoModel novoPedido = pedidoRepository.save(pedidoModel);
 
-    // Retornar a resposta com o novo pedido criado
     return ResponseEntity.status(HttpStatus.CREATED).body(novoPedido);
 }
     @GetMapping("/pedido")
@@ -108,29 +105,27 @@ public ResponseEntity<PedidoModel> addPedido(@RequestBody PedidoRecordDTO pedido
         }
         PedidoModel pedido = pedidoOptional.get();
 
-        // Encontre o usuário com base no ID do usuário no DTO
         Optional<UserModel> userOptional = userRepository.findById(Integer.parseInt(pedidoRecordDTO.usuario()));
         if (userOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         UserModel usuario = userOptional.get();
 
-        // Encontre o produto com base no nome do produto no DTO
         Optional<CardapioModel> produtoOptional = cardapioRepository.findByNome(pedidoRecordDTO.produto());
         if (produtoOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         CardapioModel produto = produtoOptional.get();
 
-        // Atualize os dados do pedido
+
         pedido.setUsuario(usuario);
         pedido.setProduto(produto);
         pedido.setQuantidade(pedidoRecordDTO.quantidade());
 
-        // Salve o pedido atualizado no banco de dados
+
         PedidoModel pedidoAtualizado = pedidoRepository.save(pedido);
 
-        // Retorne a resposta com o pedido atualizado
+
         return ResponseEntity.ok(pedidoAtualizado);
     }
 }

@@ -1,15 +1,20 @@
 package com.example.interdisciplinar.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.awt.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.UUID;
+import java.util.List;
+
 
 @Entity
 @Table(name="Cardapios")
@@ -28,6 +33,26 @@ public class CardapioModel implements Serializable {
         return imagemUrl;
     }
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> opcoes;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> carnes;
+
+    public List<String> getOpcoes() {
+        return opcoes;
+    }
+
+    public void setOpcoes(List<String> opcoes) {
+        this.opcoes = opcoes;
+    }
+
+    public List<String> getCarnes() {
+        return carnes;
+    }
+
+    public void setCarnes(List<String> carnes) {
+        this.carnes = carnes;
+    }
 
     public void setImagemUrl(String imagemUrl) {
         try {
