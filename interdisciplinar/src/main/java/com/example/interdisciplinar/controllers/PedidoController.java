@@ -1,9 +1,6 @@
 package com.example.interdisciplinar.controllers;
 import com.example.interdisciplinar.dtos.PedidoRecordDTO;
-import com.example.interdisciplinar.models.CardapioModel;
-import com.example.interdisciplinar.models.FormaPagamento;
-import com.example.interdisciplinar.models.PedidoModel;
-import com.example.interdisciplinar.models.UserModel;
+import com.example.interdisciplinar.models.*;
 import com.example.interdisciplinar.repositories.CardapioRepository;
 import com.example.interdisciplinar.repositories.PedidoRepository;
 import com.example.interdisciplinar.repositories.UserRepository;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,15 +85,68 @@ public ResponseEntity<?> addPedido(@RequestBody PedidoRecordDTO pedidoRecordDTO)
 
     return ResponseEntity.status(HttpStatus.CREATED).body(novoPedido);
 }
-    @GetMapping("/pedido")
-    public ResponseEntity<List<PedidoModel>> getAllPedidos() {
-        List<PedidoModel> pedidos = pedidoRepository.findAll();
-        if (pedidos.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(pedidos);
-    }
 
+@GetMapping("/pedido")
+public ResponseEntity<List<PedidoResponseDTO>> getAllPedidos() {
+    List<PedidoModel> pedidos = pedidoRepository.findAll();
+    if (pedidos.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+    List<PedidoResponseDTO> responseDTOs = new ArrayList<>();
+    for (PedidoModel pedido : pedidos) {
+        PedidoResponseDTO responseDTO = new PedidoResponseDTO();
+        responseDTO.setIdPedido(pedido.getIdPedido());
+        responseDTO.setNomeUsuario(pedido.getUsuario().getNome());
+        responseDTO.setPrecoTotal(pedido.getPrecoTotal());
+        responseDTO.setFormaPagamento(pedido.getFormaPagamento());
+        responseDTO.setFrete(pedido.getFrete());
+        responseDTO.setCarnes(pedido.getCarnes());
+        responseDTO.setOpcoes(pedido.getOpcoes());
+        responseDTO.setNumero(pedido.getUsuario().getNumero());
+        UserModel usuario = pedido.getUsuario();
+        if (usuario != null) {
+            AddressModel endereco = usuario.getEndereco();
+            if (endereco != null) {
+                responseDTO.setEnderecoUsuario(endereco.getLogradouro() + ", " +
+                        endereco.getComplemento() + " - " +
+                        endereco.getBairro() + ", " +
+                        endereco.getCidade() + " - " +
+                        endereco.getEstado());
+            }
+        }
+        responseDTOs.add(responseDTO);
+    }
+    return ResponseEntity.status(HttpStatus.OK).body(responseDTOs);
+}
+//public ResponseEntity<List<PedidoResponseDTO>> getAllPedidos() {
+//    List<PedidoModel> pedidos = pedidoRepository.findAll();
+//    if (pedidos.isEmpty()) {
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//    }
+//
+//    List<PedidoResponseDTO> pedidosDTO = new ArrayList<>();
+//    for (PedidoModel pedido : pedidos) {
+//        PedidoResponseDTO pedidoDTO = new PedidoResponseDTO();
+//        // Preencha os outros campos do DTO
+//
+//        // Obtém o usuário associado a este pedido
+//        UserModel usuario = pedido.getUsuario();
+//        if (usuario != null) {
+//            AddressModel endereco = usuario.getEndereco();
+//            if (endereco != null) {
+//                pedidoDTO.setEnderecoUsuario(endereco.getLogradouro() + ", " +
+//                        endereco.getComplemento() + " - " +
+//                        endereco.getBairro() + ", " +
+//                        endereco.getCidade() + " - " +
+//                        endereco.getEstado());
+//            }
+//        }
+//
+//        pedidosDTO.add(pedidoDTO);
+//    }
+//
+//    return ResponseEntity.status(HttpStatus.OK).body(pedidosDTO);
+//}
     @DeleteMapping("/pedido/{id}")
     public ResponseEntity<Object> deletePedido(@PathVariable Integer id) {
         Optional<PedidoModel> pedidoOptional = pedidoRepository.findById(id);

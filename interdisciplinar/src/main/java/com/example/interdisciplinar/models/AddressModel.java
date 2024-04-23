@@ -76,6 +76,7 @@
 
 package com.example.interdisciplinar.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
@@ -98,6 +99,8 @@ public class AddressModel implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "id_usuario")
+    @JsonBackReference
+
     private UserModel user;
 
 

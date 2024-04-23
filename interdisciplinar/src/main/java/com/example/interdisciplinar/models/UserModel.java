@@ -1,5 +1,6 @@
 package com.example.interdisciplinar.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,8 +20,12 @@ public class UserModel implements Serializable {
     private String complemento;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-
+    @JsonIgnore
     private AddressModel endereco;
+
+    public AddressModel getEndereco() {
+        return endereco;
+    }
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
