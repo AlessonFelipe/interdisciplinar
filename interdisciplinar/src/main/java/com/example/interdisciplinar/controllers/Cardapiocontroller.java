@@ -25,7 +25,6 @@ public ResponseEntity<CardapioModel> criarCardapio(@RequestBody @Valid CardapioR
     cardapio.setNome(cardapioRecordDTO.nome());
     cardapio.setDescricao(cardapioRecordDTO.descricao());
     cardapio.setPreco(cardapioRecordDTO.preco());
-//    cardapio.setImagemUrl(cardapioRecordDTO.imagemUrl());
 
     List<String> opcoes = cardapioRecordDTO.opcoes();
     List<String> carnes = cardapioRecordDTO.carnes();

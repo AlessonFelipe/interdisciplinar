@@ -24,11 +24,7 @@ public class LoginController {
         Optional<UserModel> userOptional = userRepository.findByNumero(loginRecordDTO.numero());
         if (userOptional.isPresent()) {
             UserModel usuario = userOptional.get();
-//            if (usuario.getSenha().equals(loginRecordDTO.senha())) {
                 return ResponseEntity.ok("Login bem-sucedido!");
-//            } else {
-//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha incorreta.");
-//            }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário não encontrado.");
         }

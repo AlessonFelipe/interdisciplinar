@@ -22,8 +22,8 @@ public class AddressController {
 
     @PostMapping("/endereco")
     public ResponseEntity<AddressModel> saveEndereco(@RequestBody @Valid AddressRecordDTO addressRecordDTO){
-        var addressModel = new AddressModel(); // Alteração do nome do modelo
-        BeanUtils.copyProperties(addressRecordDTO, addressModel); // Alteração do nome do modelo
+        var addressModel = new AddressModel();
+        BeanUtils.copyProperties(addressRecordDTO, addressModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(addressRepository.save(addressModel));
     }
 
@@ -34,7 +34,7 @@ public class AddressController {
 
     @GetMapping("/endereco/{id}")
     public ResponseEntity<Object> getOneEndereco(@PathVariable(value = "id")Integer id){
-        Optional<AddressModel> address = addressRepository.findById(id); // Alteração do nome do modelo
+        Optional<AddressModel> address = addressRepository.findById(id);
         if(address.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado.");
         }
@@ -43,22 +43,22 @@ public class AddressController {
 
     @PutMapping("/endereco/{id}")
     public ResponseEntity<Object> updateEndereco(@PathVariable(value = "id") Integer id, @RequestBody @Valid AddressRecordDTO addressRecordDTO){
-        Optional<AddressModel> address = addressRepository.findById(id); // Alteração do nome do modelo
+        Optional<AddressModel> address = addressRepository.findById(id);
         if(address.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado.");
         }
-        var addressModel= address.get(); // Alteração do nome do modelo
-        BeanUtils.copyProperties(addressRecordDTO, addressModel); // Alteração do nome do modelo
+        var addressModel= address.get();
+        BeanUtils.copyProperties(addressRecordDTO, addressModel);
         return ResponseEntity.status(HttpStatus.OK).body(addressRepository.save(addressModel));
     }
 
     @DeleteMapping("/endereco/{id}")
     public ResponseEntity<Object> deleteEndereco(@PathVariable(value = "id")Integer id){
-        Optional<AddressModel> address = addressRepository.findById(id); // Alteração do nome do modelo
+        Optional<AddressModel> address = addressRepository.findById(id);
         if(address.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereço não encontrado.");
         }
-        addressRepository.delete(address.get()); // Alteração do nome do modelo
+        addressRepository.delete(address.get());
         return ResponseEntity.status(HttpStatus.OK).body("Endereço deletado com sucesso.");
     }
 }

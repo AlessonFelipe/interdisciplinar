@@ -75,20 +75,4 @@ public class UserModel implements Serializable {
             throw new IllegalArgumentException("O nome deve ter mais de 5 caracteres.");
         }
     }
-
-
-
-//    public String getSenha() {
-//        return senha;
-//    }
-//
-//    public void setSenha(String senha) {
-//
-//        String regex = "^(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-//        if (senha.matches(regex)) {
-//            this.senha = senha;
-//        } else {
-//            throw new IllegalArgumentException("A senha deve ter pelo menos 4 caracteres, incluindo pelo menos uma letra e um caractere especial.");
-//        }
-//    }
 }
